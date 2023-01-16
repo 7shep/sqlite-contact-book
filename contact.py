@@ -20,6 +20,7 @@ def view():
     cur=conn.cursor()
     cur.execute("SELECT * FROM address")
     #print(cur.fetchall())
+    #^ didnt need that line it was more for troubleshooting.
     rows=cur.fetchall()
     conn.close()
     return rows
@@ -34,9 +35,10 @@ def delete(id):
 def search(id):
     conn=sqlite3.connect("contacts.db")
     cur=conn.cursor()
-    cur.execute("SEARCH FROM contacts WHERE id = ?",(id,))
-    conn.commit()
+    cur.execute("SELECT * FROM address WHERE id = ?",(id,))
+    rows=cur.fetchall()
     conn.close()
+    return rows
 
 connect()
 
@@ -72,6 +74,11 @@ while True:
         id=input("Enter an ID: ")
         delete(id)
     elif choice == "5":
+        id=input("Enter an ID: ")
+        rows=search(id)
+        for row in rows:
+            print(rows)
+    elif choice == "6":
         break
     else:
         ("Invalid Choice Entered")
