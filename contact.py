@@ -1,6 +1,6 @@
 import sqlite3
-import tkinter
 
+#connects to the SQL database
 def connect():
     conn=sqlite3.connect("contacts.db")
     cur=conn.cursor()
@@ -8,6 +8,7 @@ def connect():
     conn.commit()
     conn.close()
 
+#if add a contact is selected
 def insert(name, number, email):
     conn=sqlite3.connect("contacts.db")
     cur=conn.cursor()
@@ -15,6 +16,7 @@ def insert(name, number, email):
     conn.commit()
     conn.close()
 
+#if view a contatc is selected
 def view():
     conn=sqlite3.connect("contacts.db")
     cur=conn.cursor()
@@ -25,13 +27,16 @@ def view():
     conn.close()
     return rows
 
+#if delete a contact is selected
 def delete(id):
     conn = sqlite3.connect("contacts.db")
     cur = conn.cursor()
-    cur.execute("DELETE FROM contacts WHERE id = ?", (id,))
+    cur.execute("DELETE FROM address WHERE id = ?", (id,))
+    print("Deleted ID: ", (id,))
     conn.commit()
     conn.close()
 
+#if search a contact is selected
 def search(id):
     conn=sqlite3.connect("contacts.db")
     cur=conn.cursor()
@@ -42,6 +47,7 @@ def search(id):
 
 connect()
 
+#when program is ran, shows these options
 while True:
     print("Commands:")
     print("1: Add a new Contact")
@@ -50,6 +56,7 @@ while True:
     print("4: Delete a Contact")
     print("5: Search a Contact")
     print("6: Exit")
+    #grabs the users choice
     choice=input("Enter your choice: ")
     if choice == "1":
         #print("1")
